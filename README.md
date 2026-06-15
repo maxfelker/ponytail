@@ -14,7 +14,7 @@
 <p align="center">
   <img src="https://img.shields.io/github/stars/DietrichGebert/ponytail?style=flat-square&color=111111&label=stars" alt="Stars">
   <img src="https://img.shields.io/github/v/release/DietrichGebert/ponytail?style=flat-square&color=111111&label=release" alt="Release">
-  <img src="https://img.shields.io/badge/works%20with-11%20agents-111111?style=flat-square" alt="Works with 11 agents">
+  <img src="https://img.shields.io/badge/works%20with-13%20agents-111111?style=flat-square" alt="Works with 13 agents">
   <img src="https://img.shields.io/badge/license-MIT-111111?style=flat-square" alt="MIT license">
 </p>
 
@@ -71,6 +71,8 @@ Lazy, not negligent: trust-boundary validation, data-loss handling, security, an
 
 The most effort ponytail will ever ask of you:
 
+The Claude Code and Codex plugins run two tiny Node.js lifecycle hooks, so `node` needs to be on your PATH (note for Nix/nvm users: it must be on the non-interactive shell's PATH). If it isn't, the skills still work, the always-on activation just stays quiet instead of erroring on every prompt.
+
 ### Claude Code
 
 ```
@@ -87,6 +89,29 @@ codex
 
 Open `/plugins`, select the Ponytail marketplace, and install Ponytail. Then
 open `/hooks`, review and trust its two lifecycle hooks, and start a new thread.
+
+This same install also covers the Codex desktop app: restart the app after installing and it picks up the plugin.
+
+### GitHub Copilot CLI
+
+```bash
+copilot plugin marketplace add DietrichGebert/ponytail
+copilot plugin install ponytail@ponytail
+```
+
+In an interactive Copilot CLI session, use the slash equivalents:
+
+```
+/plugin marketplace add DietrichGebert/ponytail
+/plugin install ponytail@ponytail
+```
+
+Copilot CLI namespaces plugin commands by plugin name. For example:
+
+```text
+/ponytail:ponytail ultra
+/ponytail:ponytail-review
+```
 
 ### Pi agent harness
 
@@ -116,11 +141,11 @@ That was it. He'd be proud. He won't say it.
 
 Active every session, with a handful of commands (see [Commands](#commands)). `/ponytail ultra` exists for when the codebase has wronged you personally. Startup and mode-change text shows the current mode.
 
-Cursor, Windsurf, Cline, Copilot, Aider, Kiro: copy the matching rules file from this repo ([`.cursor/rules/`](.cursor/rules/), [`.windsurf/rules/`](.windsurf/rules/), [`.clinerules/`](.clinerules/), [`.github/copilot-instructions.md`](.github/copilot-instructions.md), [`AGENTS.md`](AGENTS.md), [`.kiro/steering/`](.kiro/steering/)).
+Cursor, Windsurf, Cline, GitHub Copilot (editor), Aider, Kiro: copy the matching rules file from this repo ([`.cursor/rules/`](.cursor/rules/), [`.windsurf/rules/`](.windsurf/rules/), [`.clinerules/`](.clinerules/), [`.github/copilot-instructions.md`](.github/copilot-instructions.md), [`AGENTS.md`](AGENTS.md), [`.kiro/steering/`](.kiro/steering/)).
 
 Kiro: copy `.kiro/steering/ponytail.md` to `~/.kiro/steering/` (global) or `.kiro/steering/` in your project.
 
-GitHub Copilot CLI: it already reads `AGENTS.md` and `.github/copilot-instructions.md` in a project, or copy the rules into `~/.copilot/copilot-instructions.md` to run ponytail in every project.
+GitHub Copilot CLI fallback (instruction-only mode): it reads `AGENTS.md` and `.github/copilot-instructions.md` in a project, or copy the rules into `~/.copilot/copilot-instructions.md` to run ponytail in every project. This path keeps always-on guidance, but does not add plugin mode switches or hooks.
 
 Antigravity and VS Code with the Codex extension: both read `AGENTS.md`, which this repo ships, so it works from the repo root with no setup (`~/.codex/AGENTS.md` makes Codex global, `.agents/rules/` makes it an always-on rule in Antigravity).
 
@@ -144,7 +169,10 @@ When changing the compact rule text, keep the agent copies aligned:
 
 ```bash
 node scripts/check-rule-copies.js
+npm test
 ```
+
+The correctness benchmark spawns Python for email and CSV checks; `python3` is tried before `python`. CSV checks need `pandas` installed locally.
 
 ## FAQ
 
