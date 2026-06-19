@@ -46,8 +46,6 @@ Con ponytail:
 
 Más sobrevivientes en [examples/](examples/).
 
-> **Combina bien con** [Modern Web Guidance](https://github.com/GoogleChrome/modern-web-guidance) para trabajo web: ponytail decide *si* apoyarse en la plataforma, MWG es cómo el agente busca *qué* feature nativa hace el trabajo. Ver [examples/web-platform-lookup.md](examples/web-platform-lookup.md).
-
 ## Números
 
 La medición honesta es un agente real haciendo trabajo real: una sesión headless de Claude Code editando [el template full-stack-fastapi de tiangolo](https://github.com/fastapi/full-stack-fastapi-template) (un repo real de FastAPI + React), evaluada sobre el `git diff` que deja. Doce tickets de feature, el mismo agente con y sin el skill, n=4, Haiku 4.5.
@@ -98,7 +96,7 @@ Flojo, no negligente: la validación en límites de confianza, el manejo de pér
 
 El mayor esfuerzo que ponytail te va a pedir:
 
-Los plugins de Claude Code y Codex ejecutan dos pequeños lifecycle hooks de Node.js, así que `node` debe estar en tu PATH (nota para usuarios de Nix/nvm: debe estar en el PATH del shell no-interactivo). Si no lo está, los skills igualmente funcionan — la activación automática simplemente queda en silencio en vez de lanzar un error en cada prompt.
+Los plugins de Claude Code y Codex ejecutan dos pequeños lifecycle hooks de Node.js, así que `node` debe estar en tu PATH (nota para usuarios de Nix/nvm: debe estar en el PATH del shell no-interactivo). Si no lo está, los skills igualmente funcionan, la activación automática simplemente queda en silencio en vez de lanzar un error en cada prompt.
 
 ### Claude Code
 
@@ -226,7 +224,7 @@ node scripts/check-rule-copies.js
 npm test
 ```
 
-El paquete de skills de OpenClaw (`.openclaw/skills/`) se genera desde `skills/`; ejecuta `node scripts/build-openclaw-skills.js` después de cambiar un skill — la suite de tests falla si está desactualizado.
+El paquete de skills de OpenClaw (`.openclaw/skills/`) se genera desde `skills/`; ejecuta `node scripts/build-openclaw-skills.js` después de cambiar un skill, la suite de tests falla si está desactualizado.
 
 El benchmark de correctness lanza Python para las verificaciones de email y CSV; se prueba `python3` antes que `python`. Las verificaciones de CSV requieren `pandas` instalado localmente.
 
